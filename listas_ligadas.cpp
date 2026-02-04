@@ -10,31 +10,42 @@ typedef struct No {
 
 void imprimir_lista(No* head);
 void inserir_no_inicio(No** head, int valor);
+void inserir_depois(No* head, int valor, int valor_procurado);
 void pausar();
 
 int main() {
     No* head = nullptr;
-    int escolha, valor;
+    int escolha, valor, valor_procurado;
 
     do {
         system("clear");
         printf("\n  ------------- MANIPULANDO LISTA -------------\n");
-        printf("  | [1] Adicionando valor no inicio           |\n");
-        printf("  | [2] Imprimir valores                      |\n");
+        printf("  | [1] Imprimir valores                      |\n");
+        printf("  | [2] Adicionando valor no inicio           |\n");
+        printf("  | [3] Adicionar conteúdo após um valor      |\n");
 
         printf("\n\nEscohla a opção: ");
         cin >> escolha;
 
         switch (escolha) {
             case 1:
+                printf("\n");
+                imprimir_lista(head);
+                pausar();
+                break;
+            
+            case 2:
                 printf("\nValor: ");
                 cin >> valor;
                 inserir_no_inicio(&head, valor);
                 break;
             
-            case 2:
-                imprimir_lista(head);
-                pausar();
+            case 3:
+                printf("\nValor procurado: ");
+                cin >> valor_procurado;
+                printf("\nValor Novo: ");
+                cin >> valor;
+                inserir_depois(head, valor_procurado, valor);
                 break;
 
             default:
@@ -60,6 +71,24 @@ void inserir_no_inicio(No** head, int valor) {
     novo->conteudo = valor;
     novo->proximo = *head;
     *head = novo;
+}
+
+void inserir_depois(No* head, int valor_procurado, int valor_novo) {
+    No* atual = head;
+
+    while(atual != nullptr && atual->conteudo != valor_procurado) {
+        atual = atual->proximo;
+    }
+
+    if(atual == nullptr) {
+        printf("\nValor não encontrado!!!");
+        return;
+    }
+
+    No* novo = (No*) malloc(sizeof(int));
+    novo->conteudo = valor_novo;
+    novo->proximo = atual->proximo;
+    atual->proximo = novo;
 }
 
 void pausar() {
