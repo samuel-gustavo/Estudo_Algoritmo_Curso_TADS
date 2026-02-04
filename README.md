@@ -17,7 +17,6 @@ O objetivo é registrar a evolução no aprendizado e servir como material de co
 
 ## 💻 Linguagens utilizadas
 
-- C
 - C++
 
 ## Organização do repositório (Em construção)
@@ -29,3 +28,14 @@ O objetivo é registrar a evolução no aprendizado e servir como material de co
 ├── exercicios/
 ├── provas/
 └── README.md
+
+## 👤 Autor
+
+Samuel Gustavo Lima da Silva
+Estudante do Instituto Federal do Rio Grande do Norte(IFRN)
+Curso: Tecnologia em Análise e Desenvolvimento de Sistemas(TADS) -- 2º Período --
+
+## 📝 Observações
+
+Este repositório faz parte do meu processo de aprendizagem.
+Os códigos podem conter versões simples ou alternativas de solução.
