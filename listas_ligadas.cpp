@@ -11,6 +11,8 @@ typedef struct No {
 void imprimir_lista(No* head);
 void inserir_no_inicio(No** head, int valor);
 void inserir_depois(No* head, int valor, int valor_procurado);
+void inserir_no_fim(No** head, int valor);
+void remover_por_valor(No** head, int valor_procurado);
 void limpar_lista(No** head);
 void pausar();
 
@@ -24,12 +26,18 @@ int main() {
         printf("  | [1] Imprimir valores                      |\n");
         printf("  | [2] Adicionando valor no inicio           |\n");
         printf("  | [3] Adicionar conteúdo após um valor      |\n");
-        printf("  | [4] Apagar toda a lista                   |\n");
+        printf("  | [4] Adicionar conteúdo no fim             |\n");
+        printf("  | [5] Remover por valor                     |\n");
+        printf("  | [6] Apagar toda a lista                   |\n");
+        printf("  | [0] Sair do Sistema                       |\n");
 
         printf("\n\nEscolha a opção: ");
         cin >> escolha;
 
         switch (escolha) {
+            case 0:
+                printf("\nSaindo do Sistema...");
+                break;
             case 1:
                 printf("\n");
                 imprimir_lista(head);
@@ -50,6 +58,16 @@ int main() {
                 inserir_depois(head, valor_procurado, valor);
                 break;
             case 4:
+                printf("\nValor: ");
+                cin >> valor;
+                inserir_no_fim(&head, valor);
+                break;
+            case 5:
+                printf("\nValor procurado: ");
+                cin >> valor_procurado;
+                remover_por_valor(&head, valor_procurado);
+                break;
+            case 6:
                 limpar_lista(&head);
                 printf("\nMemória Liberada...");
                 pausar();
@@ -96,6 +114,53 @@ void inserir_depois(No* head, int valor_procurado, int valor_novo) {
     novo->conteudo = valor_novo;
     novo->proximo = atual->proximo;
     atual->proximo = novo;
+}
+
+void inserir_no_fim(No** head, int valor) {
+    if(*head == nullptr) {
+        return;
+    }
+
+    No* novo = (No*) malloc(sizeof(int));
+    novo->conteudo = valor;
+    novo->proximo = nullptr;
+
+    No* atual = *head;
+    while (atual->proximo != nullptr) {
+        atual = atual->proximo;
+    }
+    
+    atual->proximo = novo;
+}
+
+void remover_por_valor(No** head, int valor_procurado) {
+    if(*head == nullptr) {
+        cout << "\nLista vazia!";
+        return;
+    }
+
+    // Conteúdo no Inicio
+    if((*head)->conteudo == valor_procurado) {
+        No* temp = *head;
+        *head = (*head)->proximo;
+        free(temp);
+        return;
+    }
+
+    // Conteúdo no meio
+    No* atual = *head;
+    while(atual->proximo != nullptr && atual->proximo->conteudo != valor_procurado) {
+        atual = atual->proximo;
+    }
+
+    if(atual->proximo == nullptr) {
+        cout << "Valor não Encontrado!";
+        return;
+    }
+
+    No* temp = atual->proximo;
+    atual->proximo = temp->proximo;
+    free(temp);
 }
 
 void limpar_lista(No** head) {
