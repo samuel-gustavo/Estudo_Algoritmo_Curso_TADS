@@ -11,6 +11,7 @@ typedef struct No {
 void imprimir_lista(No* head);
 void inserir_no_inicio(No** head, int valor);
 void inserir_depois(No* head, int valor, int valor_procurado);
+void limpar_lista(No** head);
 void pausar();
 
 int main() {
@@ -23,8 +24,9 @@ int main() {
         printf("  | [1] Imprimir valores                      |\n");
         printf("  | [2] Adicionando valor no inicio           |\n");
         printf("  | [3] Adicionar conteúdo após um valor      |\n");
+        printf("  | [4] Apagar toda a lista                   |\n");
 
-        printf("\n\nEscohla a opção: ");
+        printf("\n\nEscolha a opção: ");
         cin >> escolha;
 
         switch (escolha) {
@@ -46,6 +48,11 @@ int main() {
                 printf("\nValor Novo: ");
                 cin >> valor;
                 inserir_depois(head, valor_procurado, valor);
+                break;
+            case 4:
+                limpar_lista(&head);
+                printf("\nMemória Liberada...");
+                pausar();
                 break;
 
             default:
@@ -90,6 +97,16 @@ void inserir_depois(No* head, int valor_procurado, int valor_novo) {
     novo->proximo = atual->proximo;
     atual->proximo = novo;
 }
+
+void limpar_lista(No** head) {
+    No* atual;
+
+    while(*head != nullptr) {
+        atual = *head;
+        *head = (*head)->proximo;
+        free(atual);
+    }
+};
 
 void pausar() {
     cout << "\nPressione ENTER para continuar...";
