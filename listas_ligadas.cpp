@@ -147,7 +147,7 @@ void remover_por_valor(No** head, int valor_procurado) {
         return;
     }
 
-    // Conteúdo no meio
+    // Conteúdo no meio e fim
     No* atual = *head;
     while(atual->proximo != nullptr && atual->proximo->conteudo != valor_procurado) {
         atual = atual->proximo;
@@ -165,7 +165,6 @@ void remover_por_valor(No** head, int valor_procurado) {
 
 void limpar_lista(No** head) {
     No* atual;
-
     while(*head != nullptr) {
         atual = *head;
         *head = (*head)->proximo;
